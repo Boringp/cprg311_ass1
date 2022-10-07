@@ -99,10 +99,12 @@ public static void main(String[] args) {
 					
 				}
 				else if(type=='v'||type=='V') {
-					
+					VolumeCompare vc = new VolumeCompare();
+					fastSort.quickSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
-					
+					AreaCompare ac = new AreaCompare();
+					fastSort.quickSort(shapes,ac);
 				}
 			}else if (sort=='z'||sort=='Z') {
 				if(type=='h'||type=='H') {
