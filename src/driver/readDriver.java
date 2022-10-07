@@ -4,6 +4,7 @@ import sorting.Arraysorts;
 import sorting.fastSort;
 
 import java.lang.reflect.*;
+import java.time.Clock;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
@@ -32,15 +33,20 @@ public static void main(String[] args) {
 	else {
 		try {
 			shapes=readFile(path);
+			Clock clock = Clock.systemDefaultZone();
+			long start = clock.millis();
 			if(sort=='b'||sort=='B') {
 				if(type=='h'||type=='H') {
 					Arraysorts.bubbleSort(shapes);
 					
 				}
 				else if(type=='v'||type=='V') {
-					
+					VolumeCompare vc = new VolumeCompare();
+					Arraysorts.bubbleSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
+					AreaCompare ac = new AreaCompare();
+					Arraysorts.bubbleSort(shapes, ac);
 					
 				}
 			}
@@ -50,10 +56,12 @@ public static void main(String[] args) {
 					
 				}
 				else if(type=='v'||type=='V') {
-					
+					VolumeCompare vc = new VolumeCompare();
+					Arraysorts.selectionSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
-					
+					AreaCompare ac = new AreaCompare();
+					Arraysorts.selectionSort(shapes,ac);
 				}
 			}
 			else if (sort=='i'||sort=='I') {
@@ -68,6 +76,7 @@ public static void main(String[] args) {
 				else if(type=='a'||type=='A') {
 					AreaCompare ac = new AreaCompare();
 					Arraysorts.insertionSort(shapes,ac);
+					
 				}
 			}
 			else if (sort=='m'||sort=='M') {
@@ -76,10 +85,12 @@ public static void main(String[] args) {
 					
 				}
 				else if(type=='v'||type=='V') {
-					
+					VolumeCompare vc = new VolumeCompare();
+					fastSort.mergeSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
-					
+					AreaCompare ac = new AreaCompare();
+					fastSort.mergeSort(shapes,ac);
 				}
 			}
 			else if (sort=='q'||sort=='q') {
@@ -95,7 +106,7 @@ public static void main(String[] args) {
 				}
 			}else if (sort=='z'||sort=='Z') {
 				if(type=='h'||type=='H') {
-					fastSort.quickSort(shapes);
+					
 					
 				}
 				else if(type=='v'||type=='V') {
@@ -105,11 +116,25 @@ public static void main(String[] args) {
 					
 				}
 			}
-			printArea(shapes);
+			
+			long end=clock.millis();
+			System.out.println("time used: "+(end-start));
+			
+			
+			if(type=='h'||type=='H') {
+				printHeight(shapes);
+				
+			}
+			else if(type=='v'||type=='V') {
+				printVolume(shapes);
+			}
+			else if(type=='a'||type=='A') {
+				printArea(shapes);
+			}
 		}
 		
 		catch(Exception e) {
-			System.out.println("Please enter a valid path");
+			System.out.println(e);
 		}
 		
 	}
@@ -119,6 +144,12 @@ public static void printHeight(Shape shapes[]) {
 		System.out.println(shapes[i].getHeight());
 	}
 	System.out.println(shapes[shapes.length-1].getHeight());
+}
+public static void printVolume(Shape shapes[]) {
+	for(int i = 0;i<shapes.length;i+=1000) {
+		System.out.println(shapes[i].calcVolume());
+	}
+	System.out.println(shapes[shapes.length-1].calcVolume());
 }
 public static void printArea(Shape shapes[]) {
 	for(int i = 0;i<shapes.length;i+=1000) {

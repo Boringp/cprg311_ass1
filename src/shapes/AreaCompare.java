@@ -8,11 +8,11 @@ public class AreaCompare implements Comparator<Shape> {
 		// TODO Auto-generated method stub
 		if( o1.calcBaseArea() > o2.calcBaseArea() )
 		{
-			return 100;
+			return 1;
 		}
 		else if( o1.calcBaseArea() < o2.calcBaseArea() )
 		{
-			return -100;
+			return -1;
 		}
 		else // stud1.getGrade() == stud2.getGrade()
 		{
