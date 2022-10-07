@@ -1,7 +1,7 @@
 package driver;
 import shapes.*;
 import sorting.Arraysorts;
-import sorting.fastSort;
+import sorting.FastSort;
 
 import java.lang.reflect.*;
 import java.time.Clock;
@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.Scanner;
-public class readDriver {
+public class AppDriver {
 	
 public static void main(String[] args) {
 	String path="";
@@ -49,6 +49,10 @@ public static void main(String[] args) {
 					Arraysorts.bubbleSort(shapes, ac);
 					
 				}
+				else
+				{helpMessage();
+				return;
+				}
 			}
 			else if (sort=='s'||sort=='S') {
 				if(type=='h'||type=='H') {
@@ -62,6 +66,10 @@ public static void main(String[] args) {
 				else if(type=='a'||type=='A') {
 					AreaCompare ac = new AreaCompare();
 					Arraysorts.selectionSort(shapes,ac);
+				}
+				else
+				{helpMessage();
+				return;
 				}
 			}
 			else if (sort=='i'||sort=='I') {
@@ -78,33 +86,45 @@ public static void main(String[] args) {
 					Arraysorts.insertionSort(shapes,ac);
 					
 				}
+				else
+				{helpMessage();
+				return;
+				}
 			}
 			else if (sort=='m'||sort=='M') {
 				if(type=='h'||type=='H') {
-					fastSort.mergeSort(shapes);
+					FastSort.mergeSort(shapes);
 					
 				}
 				else if(type=='v'||type=='V') {
 					VolumeCompare vc = new VolumeCompare();
-					fastSort.mergeSort(shapes,vc);
+					FastSort.mergeSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
 					AreaCompare ac = new AreaCompare();
-					fastSort.mergeSort(shapes,ac);
+					FastSort.mergeSort(shapes,ac);
+				}
+				else
+				{helpMessage();
+				return;
 				}
 			}
 			else if (sort=='q'||sort=='q') {
 				if(type=='h'||type=='H') {
-					fastSort.quickSort(shapes);
+					FastSort.quickSort(shapes);
 					
 				}
 				else if(type=='v'||type=='V') {
 					VolumeCompare vc = new VolumeCompare();
-					fastSort.quickSort(shapes,vc);
+					FastSort.quickSort(shapes,vc);
 				}
 				else if(type=='a'||type=='A') {
 					AreaCompare ac = new AreaCompare();
-					fastSort.quickSort(shapes,ac);
+					FastSort.quickSort(shapes,ac);
+				}
+				else
+				{helpMessage();
+				return;
 				}
 			}else if (sort=='z'||sort=='Z') {
 				if(type=='h'||type=='H') {
@@ -117,8 +137,15 @@ public static void main(String[] args) {
 				else if(type=='a'||type=='A') {
 					
 				}
+				else
+				{helpMessage();
+				return;
+				}
 			}
-			
+			else
+				{helpMessage();
+				return;
+				}
 			long end=clock.millis();
 			System.out.println("time used: "+(end-start));
 			
@@ -134,9 +161,11 @@ public static void main(String[] args) {
 				printArea(shapes);
 			}
 		}
-		
-		catch(Exception e) {
-			System.out.println(e);
+		catch(FileNotFoundException e) {
+			System.out.print("The file path can't be found. Please enter the right path");
+		}
+		catch(Exception e ) {
+			helpMessage();
 		}
 		
 	}
